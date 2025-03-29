@@ -1,0 +1,5 @@
+PageObject\BasicSetup.class
+PageObject\Homepage.class
+PageObject\MoviePage.class
+Utilities\PropertiesClass.class
+TestCases\Test_1.class

@@ -1,0 +1,56 @@
+version: '3'
+
+networks:
+  Grid_Net:
+    driver: bridge
+
+services:
+  hub:
+    image: selenium/hub
+    container_name: Grid_Hub
+    ports:
+      - "4441-4444:4441-4444"
+    networks:
+      - Grid_Net
+
+  chrome:
+    image: selenium/node-chrome
+    container_name: Chrome
+    depends_on:
+      - hub
+    environment:
+      - SE_EVENT_BUS_HOST=hub
+      - SE_EVENT_BUS_PUBLISH_PORT=4442
+      - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
+      - SE_NODE_MAX_SESSIONS=3
+    shm_size: '2gb'
+    networks:
+      - Grid_Net
+
+  firefox:
+    image: selenium/node-firefox
+    container_name: Firefox
+    depends_on:
+      - hub
+    environment:
+      - SE_EVENT_BUS_HOST=hub
+      - SE_EVENT_BUS_PUBLISH_PORT=4442
+      - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
+      - SE_NODE_MAX_SESSIONS=3
+    shm_size: '2gb'
+    networks:
+      - Grid_Net
+
+  edge:
+    image: selenium/node-edge
+    container_name: Edge
+    depends_on:
+      - hub
+    environment:
+      - SE_EVENT_BUS_HOST=hub
+      - SE_EVENT_BUS_PUBLISH_PORT=4442
+      - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
+      - SE_NODE_MAX_SESSIONS=3
+    shm_size: '2gb'
+    networks:
+      - Grid_Net
