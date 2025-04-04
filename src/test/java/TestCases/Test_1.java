@@ -19,7 +19,6 @@ public class Test_1 extends BasicSetup{
 		hp=new Homepage(driver,wait);
 		prop=super.prop;
 		boolean actualCity = hp.setCity(prop.getProperty("city"));
-		System.out.println("Inside Test_1");
 		Assert.assertTrue(actualCity);
 	}
 	/*
